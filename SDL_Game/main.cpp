@@ -6,27 +6,16 @@
 //
 
 
-#include <iostream>
-#include <SDL2/SDL.h>
-
-bool g_bRunning = false;
-
-SDL_Window* g_pWindow = nullptr;
-SDL_Renderer* g_pRenderer = nullptr;
+#include "main.h"
 
 bool init(const char *title, int xpos, int ypos, int height, int width, int flags) {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return false;
 
     g_pWindow = SDL_CreateWindow(title, xpos, ypos, height, width, flags);
-    if (!g_pWindow) {
-        SDL_Quit();
-        return false;
-    }
+    if (g_pWindow) g_pRenderer = SDL_CreateRenderer(g_pWindow, -1, 0);
     
-    g_pRenderer = SDL_CreateRenderer(g_pWindow, -1, 0);
-    if (!g_pRenderer) {
-        SDL_DestroyWindow(g_pWindow);
-        SDL_Quit();
+    if (!g_pWindow || !g_pRenderer) {
+        clean();
         return false;
     }
     
@@ -49,6 +38,12 @@ void render() {
     SDL_RenderPresent(g_pRenderer);
 }
 
+void clean() {
+    if (g_pRenderer) SDL_DestroyRenderer(g_pRenderer);
+    if (g_pWindow) SDL_DestroyWindow(g_pWindow);
+    SDL_Quit();
+}
+
 
 int main(int argc, const char * argv[]) {
     if (!init("Chapter 1: Setting up SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN)) {
@@ -63,6 +58,6 @@ int main(int argc, const char * argv[]) {
         render();
     }
     
-    SDL_Quit();
+    clean();
     return 0;
 }
