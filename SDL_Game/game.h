@@ -9,6 +9,7 @@
 #define __Game__
 
 #include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
 
 class Game {
 public:
@@ -33,6 +34,10 @@ private:
     bool m_bRunning;
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
+    
+    SDL_Texture* m_pTexture;
+    SDL_Rect m_sourceRectangle;
+    SDL_Rect m_destinationRectangle;
 };
 
 
