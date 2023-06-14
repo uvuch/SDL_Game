@@ -9,7 +9,7 @@
 #define __Game__
 
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
+#include "texture_manager.h"
 
 class Game {
 public:
@@ -35,9 +35,7 @@ private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
     
-    SDL_Texture* m_pTexture;
-    SDL_Rect m_sourceRectangle;
-    SDL_Rect m_destinationRectangle;
+    int m_currentFrame;
 };
 
 
