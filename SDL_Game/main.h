@@ -9,18 +9,8 @@
 #define main_h
 
 #include <iostream>
-#include <SDL2/SDL.h>
+#include "game.h"
 
-bool g_bRunning = false;
-
-SDL_Window* g_pWindow = nullptr;
-SDL_Renderer* g_pRenderer = nullptr;
-
-bool init(const char *title, int xpos, int ypos, int height, int width, int flags);
-void handleEvents();
-void handleEvents();
-void update();
-void render();
-void clean();
+Game* g_game = nullptr;
 
 #endif /* main_h */
