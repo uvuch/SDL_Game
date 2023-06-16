@@ -8,18 +8,15 @@
 #ifndef __Game__
 #define __Game__
 
-#include <SDL2/SDL.h>
-#include "texture_manager.h"
+#include <vector>
+#include "game_object.h"
 
 class Game {
 public:
-    Game() {
-        m_pWindow = nullptr;
-        m_pRenderer = nullptr;
-        m_bRunning = false;
-    }
-
+    static Game* Instance();
     ~Game() { clean(); }
+    
+    SDL_Renderer* getRenderer() const { return m_pRenderer; }
     
     bool init(const char *title, int xpos, int ypos, int height, int width, bool fuulscreen);
     
@@ -31,12 +28,19 @@ public:
     void clean();
     
 private:
-    bool m_bRunning;
+    Game() {};
+    
+    static Game* s_pInstance;
+    
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
     
+    bool m_bRunning;
     int m_currentFrame;
+    
+    std::vector<GameObject*> m_gameObjects;
 };
 
+typedef Game TheGame;
 
 #endif /* defined(__Game__) */

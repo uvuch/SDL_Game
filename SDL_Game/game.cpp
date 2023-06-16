@@ -5,8 +5,19 @@
 //  Created by Serge Muzyka on 6/13/23.
 //
 
+#include <SDL2/SDL.h>
 #include "game.h"
+#include "texture_manager.h"
+#include "player.h"
+#include "enemy.h"
 
+Game* Game::s_pInstance = nullptr;
+
+Game* Game::Instance() {
+    if (!s_pInstance) s_pInstance = new Game();
+    
+    return s_pInstance;
+}
 
 bool Game::init(const char *title, int xpos, int ypos, int height, int width, bool fullscreen) {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return false;
@@ -28,6 +39,9 @@ bool Game::init(const char *title, int xpos, int ypos, int height, int width, bo
     
     m_bRunning = true;
 
+    m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82, "animate")));
+    
     return true;
 }
 
@@ -50,12 +64,18 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    m_currentFrame = int((SDL_GetTicks() / 100) % 6);
+    for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++ ) {
+        m_gameObjects[i]->update();
+    }
 }
 
 void Game::render() {
     SDL_RenderClear(m_pRenderer);
-    TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
-    TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 1, m_currentFrame, m_pRenderer);
+    
+    for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++ ) {
+        m_gameObjects[i]->draw();
+    }
+
     SDL_RenderPresent(m_pRenderer);
 }
+
