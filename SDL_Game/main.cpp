@@ -51,6 +51,8 @@ int main(int argc, const char * argv[]) {
 
     SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
     
+    SDL_DestroyRenderer(g_pRenderer);
+    SDL_DestroyWindow(g_pWindow);
     SDL_Quit();
     return 0;
 }
