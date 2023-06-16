@@ -63,6 +63,8 @@ int main(int argc, const char * argv[]) {
         render();
     }
     
+    SDL_DestroyRenderer(g_pRenderer);
+    SDL_DestroyWindow(g_pWindow);
     SDL_Quit();
     return 0;
 }
