@@ -9,8 +9,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
-bool g_bRunning = false;
-
 SDL_Window* g_pWindow = 0;
 SDL_Renderer* g_pRenderer = 0;
 SDL_RendererInfo rendererInfo;
@@ -21,7 +19,7 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
     
-    g_pWindow = SDL_CreateWindow("Chapter 1: Setting up SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
+    g_pWindow = SDL_CreateWindow("Chapter 1: Setting up SDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE);
     if (!g_pWindow) {
         std::cout << "ERROR: Cannot create window\n";
         SDL_Quit();
@@ -49,7 +47,13 @@ int main(int argc, const char * argv[]) {
     
     SDL_RenderPresent(g_pRenderer);
 
-    SDL_Event e; bool quit = false; while( quit == false ){ while( SDL_PollEvent( &e ) ){ if( e.type == SDL_QUIT ) quit = true; } }
+    SDL_Event e;
+    bool quit = false;
+    while( quit == false ) {
+        while( SDL_PollEvent( &e ) ){
+            if( e.type == SDL_QUIT ) quit = true;
+        }
+    }
     
     SDL_DestroyRenderer(g_pRenderer);
     SDL_DestroyWindow(g_pWindow);
