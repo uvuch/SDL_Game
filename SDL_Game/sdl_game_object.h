@@ -17,8 +17,6 @@ public:
     SdlGameObject(const LoaderParams* pParams);
     
     virtual void draw();
-    virtual void update()=0;
-    virtual void clean()=0;
     
 protected:
     std::string m_textureID;
