@@ -36,6 +36,9 @@ int main(int argc, const char * argv[]) {
     v1 *= 100;
     std::cout << "V1(" << v1.getX() << ", " << v1.getY() << ")\n";
     
+    v1.normalize();
+    std::cout << "V1(" << v1.getX() << ", " << v1.getY() << ")\n";
+    
     std::cout << "game init success!\n";
     while( TheGame::Instance()->running() ) { 
         TheGame::Instance()->handleEvents();

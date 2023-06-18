@@ -51,3 +51,10 @@ Vector2D& operator/=(Vector2D& v, float scalar) {
     
     return v;
 }
+
+void Vector2D::normalize() {
+    float l = length();
+    
+    if (l > 0)// sanity check to make sure we are not going to devide by 0;
+        (*this) *= 1 / l;
+}
