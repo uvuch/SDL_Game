@@ -1,11 +1,11 @@
 //
-//  vector_2d.cpp
+//  vector2d.cpp
 //  SDL_Game
 //
 //  Created by Serge Muzyka on 6/18/23.
 //
 
-#include "vector_2d.h"
+#include "vector2d.h"
 
 
 Vector2D Vector2D::operator+(const Vector2D& v2) {

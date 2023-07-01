@@ -1,12 +1,12 @@
 //
-//  vector_2d.hpp
+//  vector2d.hpp
 //  SDL_Game
 //
 //  Created by Serge Muzyka on 6/18/23.
 //
 
-#ifndef vector_2d_h
-#define vector_2d_h
+#ifndef vector2d_h
+#define vector2d_h
 
 #include <math.h> // provides "sqrt" function
 
@@ -41,4 +41,4 @@ private:
 };
 
 
-#endif /* vector_2d_h */
+#endif /* vector2d_h */

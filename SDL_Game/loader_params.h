@@ -19,6 +19,9 @@ public:
     int getY() const { return m_y; }
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
+    
+    void update(int x, int y, int width, int height, const std::string textureID);
+    
     std::string getTextureID() const { return m_textureID; }
     
 private:

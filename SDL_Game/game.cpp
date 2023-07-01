@@ -39,13 +39,26 @@ bool Game::init(const char *title, int xpos, int ypos, int height, int width, bo
     
     m_bRunning = true;
 
-    m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82, "animate")));
+    LoaderParams *params = new LoaderParams(100, 100, 128, 82, "animate");
+    m_gameObjects.push_back(new Player(params));
+    
+    params->update(300, 300, 128, 82, "animate");
+    m_gameObjects.push_back(new Enemy(params));
+    
+    delete params;
     
     return true;
 }
 
 void Game::clean() {
+    /*
+     I think objects need to be deleted with "delete" cause they had been created with "new".
+    while(SdlGameObject *obj = (SdlGameObject*) m_gameObjects.back()) {
+        m_gameObjects.pop_back();
+        delete obj;
+    }
+     */
+        
     if (m_pRenderer) SDL_DestroyRenderer(m_pRenderer);
     if (m_pWindow) SDL_DestroyWindow(m_pWindow);
     SDL_Quit();
