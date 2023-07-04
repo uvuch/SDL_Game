@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "game_object.h"
+#include "input_handler.h"
 
 class Game {
 public:
@@ -26,6 +27,7 @@ public:
     void update();
     void handleEvents();
     void clean();
+    void quite() { m_bRunning = false; }
     
 private:
     Game() {};

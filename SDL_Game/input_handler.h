@@ -1,0 +1,47 @@
+//
+//  input_handler.h
+//  SDL_Game
+//
+//  Created by Serge Muzyka on 7/3/23.
+//
+
+#ifndef input_handler_h
+#define input_handler_h
+
+#include <SDL2/SDL.h>
+#include <vector>
+#include "vector2d.h"
+
+class InputHandler {
+    const int m_joystickDeadZone = 10000;
+
+public:
+    static InputHandler* Instance() {
+        if (s_pInstance == nullptr)
+            s_pInstance = new InputHandler();
+        
+        return s_pInstance;
+    }
+    
+    void initialiseJoystick();
+    bool joystickInitialised() { return m_bJoysticksInitialised; }
+    
+    int xvalue(int joy, int stick);
+    int yvalue(int joy, int stick);
+    
+    void update();
+    void clean();
+    
+private:
+    InputHandler() {}
+    ~InputHandler() {}
+    
+    static InputHandler* s_pInstance;
+    bool m_bJoysticksInitialised;
+    std::vector<SDL_Joystick*> m_joysticks;
+    std::vector<std::pair<Vector2D*, Vector2D*>> m_joystickValues;
+};
+
+typedef InputHandler TheInputHandler;
+
+#endif /* input_handler_h */

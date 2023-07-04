@@ -9,6 +9,7 @@
 #define player_h
 
 #include "sdl_game_object.h"
+#include "input_handler.h"
 
 class Player: public SdlGameObject {
 public:
@@ -17,6 +18,9 @@ public:
     void draw();
     void update();
     void clean();
+
+private:
+    void handleInput();
 };
 
 #endif /* player_h */
