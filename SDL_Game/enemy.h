@@ -9,6 +9,7 @@
 #define enemy_h
 
 #include "sdl_game_object.h"
+#include "input_handler.h"
 
 class Enemy: public SdlGameObject {
 public:
@@ -17,6 +18,9 @@ public:
     void draw();
     void update();
     void clean();
+    
+private:
+    void handleInput();
 };
 
 #endif /* enemy_h */

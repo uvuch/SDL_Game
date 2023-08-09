@@ -12,6 +12,13 @@
 
 InputHandler* InputHandler::s_pInstance = nullptr;
 
+InputHandler::InputHandler() {
+    m_mousePosition = new Vector2D(0, 0);
+    
+    for(int i = 0; i < 3; i++)
+        m_mouseButtonStates.push_back(false);
+}
+
 void InputHandler::initialiseJoystick() {
     if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
         SDL_InitSubSystem(SDL_INIT_JOYSTICK);
@@ -137,6 +144,29 @@ void InputHandler::update() {
         if (event.type == SDL_JOYBUTTONUP) {
             int whichOne = event.jaxis.which;
             m_buttonStates[whichOne][event.jbutton.button] = false;
+        }
+        
+        if (event.type == SDL_MOUSEBUTTONDOWN) {
+            if (event.button.button == SDL_BUTTON_LEFT)
+                m_mouseButtonStates[LEFT] = true;
+            if (event.button.button == SDL_BUTTON_RIGHT)
+                m_mouseButtonStates[RIGHT] = true;
+            if (event.button.button == SDL_BUTTON_MIDDLE)
+                m_mouseButtonStates[MIDDLE] = true;
+        }
+        
+        if (event.type == SDL_MOUSEBUTTONUP) {
+            if (event.button.button == SDL_BUTTON_LEFT)
+                m_mouseButtonStates[LEFT] = false;
+            if (event.button.button == SDL_BUTTON_RIGHT)
+                m_mouseButtonStates[RIGHT] = false;
+            if (event.button.button == SDL_BUTTON_MIDDLE)
+                m_mouseButtonStates[MIDDLE] = false;
+        }
+        
+        if (event.type == SDL_MOUSEMOTION) {
+            m_mousePosition->setX(event.motion.x);
+            m_mousePosition->setY(event.motion.y);
         }
     }
 }
