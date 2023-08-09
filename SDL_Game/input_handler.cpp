@@ -23,6 +23,12 @@ void InputHandler::initialiseJoystick() {
             if (joy != nullptr) {
                 m_joysticks.push_back(joy);
                 std::pair<Vector2D*, Vector2D*> joystickStick = std::make_pair(new Vector2D(0,0), new Vector2D(0,0));
+                
+                std::vector<bool> tempButtons;
+                for(int j = 0; j < SDL_JoystickNumButtons(joy); j++)
+                    tempButtons.push_back(false);
+                m_buttonStates.push_back(tempButtons);
+                
                 m_joystickValues.push_back(joystickStick);
             }
             else {
@@ -121,7 +127,16 @@ void InputHandler::update() {
                     m_joystickValues[whichOne].second->setY(0);
                 }
             }
-            
+        }
+        
+        if (event.type == SDL_JOYBUTTONDOWN) {
+            int whichOne = event.jaxis.which;
+            m_buttonStates[whichOne][event.jbutton.button] = true;
+        }
+        
+        if (event.type == SDL_JOYBUTTONUP) {
+            int whichOne = event.jaxis.which;
+            m_buttonStates[whichOne][event.jbutton.button] = false;
         }
     }
 }
