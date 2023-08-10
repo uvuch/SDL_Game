@@ -47,6 +47,17 @@ private:
     InputHandler();
     ~InputHandler() {}
     
+    void onKeyUp() {}
+    void onKeyDown() {}
+    
+    void onMouseMove(SDL_Event& event);
+    void onMouseButtonUp(SDL_Event& event);
+    void onMouseButtonDown(SDL_Event& event);
+    
+    void onJoystickAxisMove(SDL_Event& event);
+    void onJoystickButtonDown(SDL_Event& event);
+    void onJoystickButtonUp(SDL_Event& event);
+    
     static InputHandler* s_pInstance;
     bool m_bJoysticksInitialised;
 
