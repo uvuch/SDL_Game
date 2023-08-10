@@ -13,6 +13,8 @@
 InputHandler* InputHandler::s_pInstance = nullptr;
 
 InputHandler::InputHandler() {
+    m_keystate = nullptr;
+
     m_mousePosition = new Vector2D(0, 0);
     
     for(int i = 0; i < 3; i++)
@@ -78,9 +80,18 @@ int InputHandler::yvalue(int joy, int stick) {
     return 0;
 }
 
+bool InputHandler::isKeyDown(SDL_Scancode key) {
+    if (m_keystate)
+        return m_keystate[key];
+    
+    return false;
+}
+
 void InputHandler::update() {
     SDL_Event event;
     while( SDL_PollEvent( &event ) ) {
+        m_keystate = SDL_GetKeyboardState(0);
+
         if (event.type == SDL_QUIT) {
             TheGame::Instance()->quite();
         }

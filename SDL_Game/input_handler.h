@@ -35,6 +35,7 @@ public:
     int xvalue(int joy, int stick);
     int yvalue(int joy, int stick);
     
+    bool isKeyDown(SDL_Scancode key);
     bool getButtonState(int joy, int buttonNumber) { return m_buttonStates[joy][buttonNumber]; }
     bool getMouseButtonState(int buttonNumber) { return m_mouseButtonStates[buttonNumber]; }
     Vector2D* getMousePosition() { return m_mousePosition; }
@@ -53,6 +54,7 @@ private:
     std::vector<std::pair<Vector2D*, Vector2D*>> m_joystickValues;
     std::vector<std::vector<bool>> m_buttonStates;
     std::vector<bool> m_mouseButtonStates;
+    const Uint8* m_keystate;
     
     Vector2D* m_mousePosition;
 };
